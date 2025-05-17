@@ -1,0 +1,19 @@
+header {
+  @apply mb-10;
+}
+
+.page-title {
+  @apply text-2xl font-bold;
+}
+
+.page-description {
+  @apply text-muted-foreground;
+}
+
+.field {
+  @apply grid w-full items-center gap-1.5;
+}
+
+aside .separator {
+  @apply mt-6 mb-3;
+}

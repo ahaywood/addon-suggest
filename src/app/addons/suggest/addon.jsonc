@@ -1,0 +1,22 @@
+{
+  "name": "suggest",
+  "description": "Adds a suggestion box feature with routes, form handling, and emails",
+  "version": "0.1.0",
+
+  "routes": {
+    "file": "routes.ts",
+    "prefix": "/suggest"
+  },
+
+  "packages": ["date-fns", "resend", "framer-motion"],
+
+  "env": ["RESEND_API_KEY"],
+
+  "styles": {
+    "source": "src/app/addons/suggest/styles.css",
+    "injectInto": "src/app/styles.css", // project-wide styles file
+    "injectDirective": "@import './addons/suggest/styles.css';"
+  },
+
+  "postInstallMessage": "✅ Finished installing the `suggest` add-on."
+}
