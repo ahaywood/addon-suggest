@@ -20,12 +20,11 @@ import { IdeaList } from "./components/IdeaList";
 import { CommentList } from "./components/CommentList";
 import { UserList } from "./components/UserList";
 import { link } from "@/app/shared/links";
-import { Layout } from "./Layout";
 import { Separator } from "@/app/components/ui/separator";
 
 const DashboardPage = () => {
   return (
-    <Layout>
+    <>
       <header className="flex items-center">
         <h1 className="page-title flex-1">Dashboard</h1>
         <div className="flex items-center gap-2">
@@ -43,7 +42,7 @@ const DashboardPage = () => {
       </header>
 
       {/* stat blocks */}
-      <div className="flex gap-3 mb-4">
+      <div className="flex gap-5 mb-6">
         <StatBlock
           label="Total Ideas"
           number="1,289"
@@ -133,7 +132,7 @@ const DashboardPage = () => {
           </TabsContent>
         </Tabs>
       </div>
-    </Layout>
+    </>
   );
 };
 

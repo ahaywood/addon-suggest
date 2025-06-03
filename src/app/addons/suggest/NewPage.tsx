@@ -16,11 +16,15 @@ import { Badge } from "@/app/components/ui/badge";
 import { Checkbox } from "@/app/components/ui/checkbox";
 import { link } from "@/app/shared/links";
 import { Switch } from "@/app/components/ui/switch";
-import { Layout } from "./Layout";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/app/components/ui/popover";
 
 export const NewPage = () => {
   return (
-    <Layout>
+    <>
       <Button variant="ghost" className="absolute top-3 left-3" asChild>
         <a href={link("/suggest/dashboard")}>
           <ArrowLeft />
@@ -29,7 +33,7 @@ export const NewPage = () => {
       </Button>
       <header className="flex items-center gap-5">
         <Avatar className="size-[70px]">
-          <AvatarImage src="https://github.com/shadcn.png" />
+          {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
           <AvatarFallback>A</AvatarFallback>
         </Avatar>
         <div className="flex-1">
@@ -117,9 +121,33 @@ export const NewPage = () => {
             <section>
               <div className="flex justify-between items-center">
                 <Label>Type</Label>
-                <Button variant="ghost">
-                  <Settings />
-                </Button>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button variant="ghost">
+                      <Settings />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[150px]">
+                    <ul className="flex flex-col gap-2">
+                      <li className="flex items-center gap-2">
+                        <Checkbox id="youtube" name="youtube" />
+                        <Label htmlFor="youtube">YouTube</Label>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Checkbox id="tiktok" name="tiktok" />
+                        <Label htmlFor="tiktok">TikTok</Label>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Checkbox id="instagram" name="instagram" />
+                        <Label htmlFor="instagram">Instagram</Label>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Checkbox id="facebook" name="facebook" />
+                        <Label htmlFor="facebook">Facebook</Label>
+                      </li>
+                    </ul>
+                  </PopoverContent>
+                </Popover>
               </div>
               <Badge>YouTube</Badge>
             </section>
@@ -137,6 +165,6 @@ export const NewPage = () => {
           </aside>
         </form>
       </div>
-    </Layout>
+    </>
   );
 };

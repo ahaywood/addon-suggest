@@ -14,7 +14,7 @@ export const CommentForm = () => {
     <form className="flex gap-x-5">
       <div>
         <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" />
+          {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
           <AvatarFallback>A</AvatarFallback>
         </Avatar>
       </div>

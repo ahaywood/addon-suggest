@@ -1,5 +1,3 @@
-import styles from './styles.css?url';
-
 import styles from "./styles.css?url";
 
 export const Document: React.FC<{ children: React.ReactNode }> = ({
@@ -10,8 +8,9 @@ export const Document: React.FC<{ children: React.ReactNode }> = ({
       <link rel="stylesheet" href={styles} />
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <title>@redwoodjs/starter-standard</title>
+      <title>Suggest Add-On</title>
       <link rel="modulepreload" href="/src/client.tsx" />
+      <link rel="icon" href="/favicon.png" type="image/png" />
     </head>
     <body>
       <div id="root">{children}</div>

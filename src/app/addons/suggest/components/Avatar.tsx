@@ -9,7 +9,7 @@ import {
 export const Avatar = () => {
   return (
     <AvatarWrapper>
-      <AvatarImage src="https://github.com/shadcn.png" />
+      {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
       <AvatarFallback>A</AvatarFallback>
     </AvatarWrapper>
   );

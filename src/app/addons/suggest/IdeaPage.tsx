@@ -1,4 +1,5 @@
-import { Layout } from "./Layout";
+"use client";
+
 import { Badge } from "@/app/components/ui/badge";
 import { Button } from "@/app/components/ui/button";
 import { Separator } from "@/app/components/ui/separator";
@@ -14,10 +15,30 @@ import {
 import { RequestInfo } from "rwsdk/worker";
 import { CommentList } from "./components/CommentList";
 import { CommentForm } from "./components/CommentForm";
+import { Dialog } from "@radix-ui/react-dialog";
+import {
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/app/components/ui/dialog";
+import { AlertDialogTrigger } from "@/app/components/ui/alert-dialog";
+import {
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/app/components/ui/alert-dialog";
+import { AlertDialog } from "@/app/components/ui/alert-dialog";
 
 const IdeaPage = ({ params }: RequestInfo) => {
+  console.log(params);
   return (
-    <Layout>
+    <>
       <Button variant="ghost" className="absolute top-3 left-3" asChild>
         <a href={link("/suggest/dashboard")}>
           <ArrowLeft />
@@ -40,11 +61,13 @@ const IdeaPage = ({ params }: RequestInfo) => {
         </div>
         <div className="flex-1">
           <div className="flex justify-between">
-            <h1 className="page-title mb-3">IndividualPage {params.id}</h1>
+            <h1 className="page-title mb-3">IndividualPage</h1>
             <div className="flex gap-x-3">
-              <Button variant="default">
-                <Plus />
-                New Idea
+              <Button variant="default" asChild>
+                <a href={link("/suggest/new")}>
+                  <Plus />
+                  New Idea
+                </a>
               </Button>
             </div>
           </div>
@@ -73,10 +96,31 @@ const IdeaPage = ({ params }: RequestInfo) => {
             <Edit />
             Edit
           </Button>
-          <Button variant="ghost">
-            <Trash />
-            Delete
-          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="ghost">
+                <Trash />
+                Delete
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle className="text-destructive">
+                  Are you absolutely sure?
+                </AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone. This will permanently delete
+                  your account and remove your data from our servers.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction className="bg-destructive">
+                  Continue
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
 
         <Separator className="mb-10" />
@@ -92,7 +136,7 @@ const IdeaPage = ({ params }: RequestInfo) => {
 
         <CommentForm />
       </div>
-    </Layout>
+    </>
   );
 };
 

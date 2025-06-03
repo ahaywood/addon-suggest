@@ -9,7 +9,7 @@ export const IdeaBlock = () => {
       <div>
         <Button
           variant="ghost"
-          className="flex flex-col min-h-[100px] gap-1 hover:bg-violet-50 cursor-pointer"
+          className="flex flex-col min-h-[100px] gap-1 hover:bg-violet-500 hover:text-white cursor-pointer"
         >
           <div className="-mb-2">
             <ChevronUp size={30} className="size-8" />
@@ -46,7 +46,6 @@ export const IdeaBlock = () => {
         <Button asChild variant="ghost">
           <a href={link("/suggest/:id", { id: "1" })}>
             <Eye />
-            15
           </a>
         </Button>
       </div>

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@import "./pages/suggest/styles.css";
+@import "./addons/suggest/styles.css";
 
 @custom-variant dark (&:is(.dark *));
 

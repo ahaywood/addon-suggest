@@ -7,7 +7,13 @@ import {
 } from "@/app/components/ui/avatar";
 import { Badge } from "@/app/components/ui/badge";
 import { Button } from "@/app/components/ui/button";
-import { Ellipsis, Eye } from "lucide-react";
+import { DropdownMenu } from "@/app/components/ui/dropdown-menu";
+import {
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/app/components/ui/dropdown-menu";
+import { DropdownMenuTrigger } from "@/app/components/ui/dropdown-menu";
+import { Ellipsis, Eye, EyeOff, Trash } from "lucide-react";
 
 export const CommentBlock = () => {
   return (
@@ -31,12 +37,26 @@ export const CommentBlock = () => {
             </div>
           </div>
           <div className="flex gap-x-2">
-            <Button variant="ghost">
-              <Ellipsis />
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost">
+                  <Ellipsis />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <EyeOff />
+                  Hide Comment
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Trash />
+                  Delete Comment
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
-        <p>
+        <p className="text-sm">
           Yes! I'd love to see you try crabbing. It's become really popular
           because it's relatively accessible and makes for great content.
         </p>
