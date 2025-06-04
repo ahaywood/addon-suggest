@@ -389,7 +389,7 @@ function mergePrismaSchema() {
   preparePrismaSchema();
   
   log('🔄', 'Merging Prisma schema files', colors.blue);
-  const result = runCommand('npx graftthis merge');
+  const result = runCommand('npx rwsdk-tools merge');
   
   if (result) {
     log('🔄', 'Creating migration for merged schema', colors.blue);
@@ -404,7 +404,7 @@ function mergePrismaSchema() {
  */
 function generateRoutes() {
   log('🔄', 'Installing generate routes script', colors.blue);
-  const installResult = runCommand('npx graftthis routes');
+  const installResult = runCommand('npx rwsdk-tools routes');
   
   if (installResult) {
     log('🔄', 'Generating routes', colors.blue);
@@ -424,7 +424,7 @@ function installShadcnComponents(components) {
   
   // First ensure shadcn/ui is installed
   log('🔄', 'Ensuring shadcn/ui is installed', colors.blue);
-  const shadcnInstalled = runCommand('npx graftthis shadcn');
+  const shadcnInstalled = runCommand('npx rwsdk-tools shadcn');
   
   if (!shadcnInstalled) {
     log('⚠️', 'Failed to install shadcn/ui base', colors.yellow);
@@ -484,7 +484,7 @@ async function installAddon(addonPath, sourceAddonPath = null) {
     // Check if Tailwind is required
     if (addonConfig.tailwind) {
       log('🔄', 'Installing Tailwind', colors.blue);
-      runCommand('npx graftthis tailwind');
+      runCommand('npx rwsdk-tools tailwind');
     }
     
     // Check if shadcn/ui is required
@@ -492,7 +492,7 @@ async function installAddon(addonPath, sourceAddonPath = null) {
       if (typeof addonConfig.shadcn === 'boolean') {
         // Simple boolean flag
         log('🔄', 'Installing shadcn/ui', colors.blue);
-        runCommand('npx graftthis shadcn');
+        runCommand('npx rwsdk-tools shadcn');
       } else if (addonConfig.shadcn.required) {
         // Object with required flag and components list
         log('🔄', 'Installing shadcn/ui and components', colors.blue);
@@ -502,7 +502,7 @@ async function installAddon(addonPath, sourceAddonPath = null) {
           installShadcnComponents(addonConfig.shadcn.components);
         } else {
           // Just install the base if no specific components
-          runCommand('npx graftthis shadcn');
+          runCommand('npx rwsdk-tools shadcn');
         }
       }
     }

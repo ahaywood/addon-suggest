@@ -1,0 +1,37 @@
+{
+  "name": "suggest",
+  "description": "suggest add-on for RWSDK",
+  "version": "0.1.0",
+  "routes": {
+    "file": "routes.ts",
+    "prefix": ""
+  },
+  "packages": [
+    "@radix-ui"
+  ],
+  "env": [
+    "RESEND_API_KEY"
+  ],
+  "shadcn": {
+    "required": true,
+    "components": [
+      "button",
+      "input",
+      "separator",
+      "badge",
+      "alert-dialog",
+      "dialog",
+      "label",
+      "textarea",
+      "checkbox",
+      "switch",
+      "dropdown-menu"
+    ]
+  },
+  "styles": {
+    "source": "src/app/addons/suggest/styles.css",
+    "injectInto": "src/app/styles.css", // project-wide styles file,
+    "injectDirective": "@import './addons/suggest/styles.css';"
+  },
+  "postInstallMessage": "✅ suggest add-on installed successfully."
+}
