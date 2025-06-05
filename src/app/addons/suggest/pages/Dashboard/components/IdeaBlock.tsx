@@ -1,7 +1,8 @@
 import { Badge } from "@/app/components/ui/badge";
 import { Button } from "@/app/components/ui/button";
 import { link } from "@/app/shared/links";
-import { ChevronUp, MessageCircle, Eye } from "lucide-react";
+import { ChevronUp, MessageCircle, Eye, EyeOff } from "lucide-react";
+import { Avatar } from "../../../components/Avatar";
 
 export const IdeaBlock = () => {
   return (
@@ -35,18 +36,23 @@ export const IdeaBlock = () => {
         </div>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-5">
         <Button asChild variant="ghost">
           <a href={link("/suggest/:id", { id: "1" })}>
-            <MessageCircle />
-            15
+            <EyeOff />
+            Private
           </a>
         </Button>
 
         <Button asChild variant="ghost">
           <a href={link("/suggest/:id", { id: "1" })}>
-            <Eye />
+            <MessageCircle />
+            15 Comments
           </a>
+        </Button>
+
+        <Button asChild variant="ghost">
+          <a href={link("/suggest/:id", { id: "1" })}>Details</a>
         </Button>
       </div>
     </div>

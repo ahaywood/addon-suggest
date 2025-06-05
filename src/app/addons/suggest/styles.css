@@ -1,6 +1,15 @@
+@theme {
+  --font-sans: "Inter", sans-serif;
+  --font-mono: monospace;
+}
+
+@utility center {
+  @apply flex items-center justify-center;
+}
+
 html,
 body {
-  @apply font-mono;
+  @apply font-sans;
 }
 
 header {
@@ -12,7 +21,7 @@ header {
 }
 
 .page-description {
-  @apply text-muted-foreground;
+  @apply text-muted-foreground text-sm;
 }
 
 .field {

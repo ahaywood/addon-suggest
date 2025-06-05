@@ -73,6 +73,20 @@ If your addon includes an `env.example` file, the script will extract environmen
 ]
 ```
 
+### Tailwind CSS
+
+The script automatically detects if your addon requires Tailwind CSS:
+
+```json
+"tailwindcss": {
+  "required": true
+}
+```
+
+Tailwind is detected as required if:
+- Your addon uses ShadCN UI components (which always require Tailwind)
+- Your CSS files contain `@apply` directives (which are Tailwind-specific)
+
 ### ShadCN Components
 
 The script detects ShadCN UI components used in your addon:
@@ -94,6 +108,8 @@ ShadCN components are detected by analyzing:
 - Import statements with paths containing `@/components/ui/` or `@/app/components/ui/`
 - Relative imports with `./components/ui/` or `../components/ui/`
 - Direct JSX usage of component names
+
+Note: When ShadCN components are detected, Tailwind CSS is automatically marked as required.
 
 ### Styles
 

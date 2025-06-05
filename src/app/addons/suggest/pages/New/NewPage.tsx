@@ -21,6 +21,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/app/components/ui/popover";
+import { Editor } from "../../components/Editor";
+import { SelectContent } from "@/app/components/ui/select";
+import { SelectValue } from "@/app/components/ui/select";
+import { SelectTrigger } from "@/app/components/ui/select";
+import { SelectItem } from "@/app/components/ui/select";
+import { Select } from "@/app/components/ui/select";
 
 export const NewPage = () => {
   return (
@@ -59,7 +65,7 @@ export const NewPage = () => {
 
             <div className="field">
               <Label htmlFor="content">Content</Label>
-              <Textarea id="content" className="h-[350px]" />
+              <Editor id="content" className="h-[350px]" />
             </div>
 
             <div className="field grid-cols-[auto_auto_auto] justify-end w-full !gap-x-4">
@@ -84,10 +90,17 @@ export const NewPage = () => {
           <aside className="border-l pl-[30px]">
             <section>
               <div className="flex justify-between items-center">
-                <Label>Status</Label>
-                <Button variant="ghost">
-                  <Settings />
-                </Button>
+                <Select>
+                  <SelectTrigger variant="ghost" className="w-full">
+                    <Label>Status</Label>
+                    <Settings />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="light">Light</SelectItem>
+                    <SelectItem value="dark">Dark</SelectItem>
+                    <SelectItem value="system">System</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <Badge>Finished</Badge>
             </section>

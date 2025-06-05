@@ -6,9 +6,9 @@ import {
   AvatarImage,
 } from "@/app/components/ui/avatar";
 
-export const Avatar = () => {
+export const Avatar = ({ className }: { className?: string }) => {
   return (
-    <AvatarWrapper>
+    <AvatarWrapper className={className}>
       {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
       <AvatarFallback>A</AvatarFallback>
     </AvatarWrapper>

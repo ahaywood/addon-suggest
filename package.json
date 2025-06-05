@@ -26,7 +26,9 @@
     "types": "tsc",
     "prepare": "vibe-rules install cursor",
     "merge": "node src/scripts/mergePrismaSchema.mjs",
-    "routes": "npx tsx src/scripts/generateRoutes.ts"
+    "routes": "npx tsx src/scripts/generateRoutes.ts",
+    "addon:generate": "node src/scripts/generateAddonConfig.mjs",
+    "addon:install": "node src/scripts/installAddon.mjs"
   },
   "dependencies": {
     "@prisma/adapter-d1": "~6.5.0",

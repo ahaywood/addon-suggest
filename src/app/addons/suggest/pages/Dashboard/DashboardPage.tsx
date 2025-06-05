@@ -17,7 +17,7 @@ import {
   SelectValue,
 } from "@/app/components/ui/select";
 import { IdeaList } from "./components/IdeaList";
-import { CommentList } from "./components/CommentList";
+import { CommentList } from "../../components/CommentList";
 import { UserList } from "./components/UserList";
 import { link } from "@/app/shared/links";
 import { Separator } from "@/app/components/ui/separator";
@@ -112,6 +112,19 @@ const DashboardPage = () => {
               <SelectItem value="document">Document</SelectItem>
             </SelectContent>
           </Select>
+          <Separator orientation="vertical" />
+
+          <div className="text-sm text-zinc-400">Visibility</div>
+          <Select defaultValue="all">
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Board" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All</SelectItem>
+              <SelectItem value="public">Public</SelectItem>
+              <SelectItem value="private">Private</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
         <Tabs defaultValue="account">
           <TabsList>
@@ -123,9 +136,7 @@ const DashboardPage = () => {
             <IdeaList />
           </TabsContent>
           <TabsContent value="comments">
-            <div className="border rounded-sm p-6 pb-0">
-              <CommentList />
-            </div>
+            <CommentList />
           </TabsContent>
           <TabsContent value="users">
             <UserList />

@@ -6,5 +6,8 @@ export const link = defineLinks([
   "/suggest/dashboard",
   "/suggest/new",
   "/suggest/settings",
+  "/suggest/users",
+  "/suggest/user/:id",
   "/suggest/:id" /* individual idea */,
+  "/logout",
 ]);

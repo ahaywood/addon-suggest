@@ -1,5 +1,4 @@
-import React from "react";
-import { Avatar } from "./components/Avatar";
+import { Avatar } from "../components/Avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,22 +8,24 @@ import {
 import { link } from "@/app/shared/links";
 import { LayoutProps } from "rwsdk/router";
 
-export const Layout = ({ children, requestInfo }: LayoutProps) => {
-  const { params } = requestInfo;
-  console.log({ params });
+export const Layout = ({ children }: LayoutProps) => {
   return (
     <main className="p-[100px]">
       <div className="absolute top-4 right-4">
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          <DropdownMenuTrigger className="cursor-pointer">
             <Avatar />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem asChild>
               <a href={link("/suggest/settings")}>My Account</a>
             </DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem>Logout</DropdownMenuItem>
+            <DropdownMenuItem>
+              <a href={link("/suggest/settings")}>Settings</a>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <a href={link("/logout")}>Logout</a>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

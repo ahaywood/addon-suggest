@@ -15,9 +15,11 @@ export const StatBlock = ({
 }) => {
   return (
     <div className="border-1 rounded-sm w-full p-5">
-      <h2 className="mb-2">{label}</h2>
-      <div className="text-2xl font-bold mb-2">{number}</div>
-      <div className="flex items-center gap-1">
+      <h2 className="mb-2 font-bold uppercase tracking-wider text-sm font-mono">
+        {label}
+      </h2>
+      <div className="text-7xl font-black font-sans mb-2">{number}</div>
+      <div className="flex items-center gap-1.5">
         <span
           className={`text-sm ${
             direction === "up" ? "text-green-600" : "text-red-600"

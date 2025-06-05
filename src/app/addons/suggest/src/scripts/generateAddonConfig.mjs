@@ -41,7 +41,7 @@ function verboseLog(emoji, message, color = colors.reset) {
 // Quiet logging function - only shows essential messages
 function log(emoji, message, color = colors.reset) {
   // Only log essential messages (start, completion, errors)
-  if (emoji === "✅" || emoji === "❌" || emoji === "🔍") {
+  if (emoji === '✅' || emoji === '❌' || emoji === '🔍') {
     console.log(`${emoji}  ${color}${message}${colors.reset}`);
   }
 }
@@ -159,17 +159,17 @@ function detectTailwindNeeded(addonDir, hasShadcn) {
   if (hasShadcn) {
     return true;
   }
-
+  
   // Check if there are any CSS files with @apply directives
   const cssFiles = findFiles(addonDir, [], ".css");
-
+  
   for (const cssFile of cssFiles) {
     const content = fs.readFileSync(cssFile, "utf8");
     if (content.includes("@apply")) {
       return true;
     }
   }
-
+  
   return false;
 }
 
@@ -180,11 +180,7 @@ function detectShadcnComponents(addonDir) {
   // Check if the UI components directory exists in the project
   const projectUiDir = path.join(projectRoot, "src/app/components/ui");
   if (!fs.existsSync(projectUiDir)) {
-    verboseLog(
-      "ℹ️",
-      "No ShadCN components directory found in project",
-      colors.blue
-    );
+    verboseLog("ℹ️", "No ShadCN components directory found in project", colors.blue);
     return null;
   }
 
@@ -207,9 +203,7 @@ function detectShadcnComponents(addonDir) {
 
   verboseLog(
     "🟣",
-    `Found ${
-      availableComponents.length
-    } ShadCN components in project: ${availableComponents.join(", ")}`,
+    `Found ${availableComponents.length} ShadCN components in project: ${availableComponents.join(", ")}`,
     colors.magenta
   );
 
@@ -221,20 +215,13 @@ function detectShadcnComponents(addonDir) {
     ...findFiles(addonDir, [], ".tsx"),
   ];
 
-  verboseLog(
-    "🟡",
-    `Scanning JS/TS files: ${jsFiles.join(", ")}`,
-    colors.yellow
-  );
+  verboseLog("🟡", `Scanning JS/TS files: ${jsFiles.join(", ")}`, colors.yellow);
   if (jsFiles.length > 0) {
     const firstFile = jsFiles[0];
     const content = fs.readFileSync(firstFile, "utf8");
     verboseLog(
       "🟡",
-      `Content of first JS/TS file (${firstFile}):\n${content.substring(
-        0,
-        300
-      )}`,
+      `Content of first JS/TS file (${firstFile}):\n${content.substring(0, 300)}`,
       colors.yellow
     );
   }
@@ -286,16 +273,15 @@ function detectShadcnComponents(addonDir) {
         }
       }
     }
-
+    
     // Fallback: Line-by-line approach to catch more import patterns
     const lines = content.split("\n");
     for (const line of lines) {
-      if (
-        line.includes("import") &&
-        (line.includes("/components/ui/") ||
-          line.includes("@/components/ui/") ||
-          line.includes("@/app/components/ui/"))
-      ) {
+      if (line.includes("import") && 
+          (line.includes("/components/ui/") || 
+           line.includes("@/components/ui/") || 
+           line.includes("@/app/components/ui/"))) {
+        
         // Check each component
         for (const component of availableComponents) {
           if (line.includes(component)) {
@@ -309,7 +295,7 @@ function detectShadcnComponents(addonDir) {
         }
       }
     }
-
+    
     // Also check for direct usage of the component in JSX
     for (const component of availableComponents) {
       const usageRegex = new RegExp(`<\s*${component}\b`);
@@ -327,9 +313,7 @@ function detectShadcnComponents(addonDir) {
   if (usedComponents.size > 0) {
     log(
       "✅",
-      `Detected ${usedComponents.size} ShadCN components used in add-on: ${[
-        ...usedComponents,
-      ].join(", ")}`,
+      `Detected ${usedComponents.size} ShadCN components used in add-on: ${[...usedComponents].join(", ")}`,
       colors.green
     );
     return [...usedComponents];
@@ -493,9 +477,7 @@ function generateAddonConfig(addonName, addonDir) {
       addonConfig.packages = filteredPackages;
       verboseLog(
         "ℹ️",
-        `Found ${filteredPackages.length} packages: ${filteredPackages.join(
-          ", "
-        )}`,
+        `Found ${filteredPackages.length} packages: ${filteredPackages.join(", ")}`,
         colors.blue
       );
     } else {
@@ -518,17 +500,17 @@ function generateAddonConfig(addonName, addonDir) {
       required: true,
       components: shadcnComponents,
     };
-
+    
     // If ShadCN is used, Tailwind is required
     addonConfig.tailwindcss = {
-      required: true,
+      required: true
     };
   } else {
     // Check if Tailwind is needed for other reasons
     const needsTailwind = detectTailwindNeeded(addonDir, false);
     if (needsTailwind) {
       addonConfig.tailwindcss = {
-        required: true,
+        required: true
       };
     }
   }

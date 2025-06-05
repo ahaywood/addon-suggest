@@ -1,5 +1,5 @@
 import { defineApp, ErrorResponse } from "rwsdk/worker";
-import { route, render, prefix } from "rwsdk/router";
+import { route, render, prefix, layout } from "rwsdk/router";
 import { Document } from "@/app/Document";
 import { Home } from "@/app/pages/Home";
 import { setCommonHeaders } from "@/app/headers";
@@ -10,6 +10,8 @@ import { db, setupDb } from "./db";
 import type { User } from "@prisma/client";
 import { env } from "cloudflare:workers";
 import SuggestRoutes from "./app/addons/suggest/routes";
+import { AddOnLayout } from "./app/pages/AddOnLayout";
+
 export { SessionDurableObject } from "./session/durableObject";
 
 export type AppContext = {
