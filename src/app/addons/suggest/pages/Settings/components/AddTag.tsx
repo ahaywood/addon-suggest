@@ -4,10 +4,25 @@ import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
 import { RefreshCw, X } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { tagColors } from "../../../lib/tagColors";
 
 const AddTag = ({ closePanel }: { closePanel: () => void }) => {
+  const [selectedColor, setSelectedColor] = useState<number | null>(null);
+  const [hexValue, setHexValue] = useState<string | null>(null);
+
+  useEffect(() => {
+    setSelectedColor(getRandomColor());
+  }, []);
+
+  useEffect(() => {
+    setHexValue(tagColors[selectedColor ?? 0].hex);
+  }, [selectedColor]);
+
+  const getRandomColor = () => {
+    return Math.floor(Math.random() * tagColors.length);
+  };
+
   return (
     <div className="box p-5 relative">
       <Button
@@ -26,14 +41,20 @@ const AddTag = ({ closePanel }: { closePanel: () => void }) => {
               variant="secondary"
               type="button"
               className="text-white"
-              style={{ backgroundColor: tagColors[0].hex }}
+              style={{ backgroundColor: hexValue ?? "" }}
+              onClick={() => {
+                setSelectedColor(getRandomColor());
+              }}
             >
               <RefreshCw />
             </Button>
             <Input
               name="color"
               className="w-[100px]"
-              defaultValue={tagColors[0].hex}
+              value={hexValue ?? ""}
+              onChange={(e) => {
+                setHexValue(e.target.value);
+              }}
             />
           </div>
         </div>
