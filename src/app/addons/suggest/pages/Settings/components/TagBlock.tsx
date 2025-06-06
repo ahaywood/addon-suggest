@@ -2,14 +2,14 @@
 
 import { Button } from "@/app/components/ui/button";
 import { link } from "@/app/shared/links";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "@radix-ui/react-dropdown-menu";
 import { Ellipsis, Eye, Pencil, Trash, Tag as TagIcon } from "lucide-react";
 import { Swatch } from "../../../components/Swatch";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/app/components/ui/dropdown-menu";
 
 const TagBlock = () => {
   return (

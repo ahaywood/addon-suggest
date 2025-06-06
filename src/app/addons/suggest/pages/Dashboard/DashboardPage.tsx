@@ -1,4 +1,4 @@
-import { Search } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { Input } from "@/app/components/ui/input";
 import {
   Tabs,
@@ -11,6 +11,7 @@ import { IdeaList } from "./components/IdeaList";
 import { CommentList } from "../../components/CommentList";
 import { UserList } from "./components/UserList";
 import { FilterBar } from "./components/FilterBar";
+import { AddUser } from "./components/AddUser";
 
 const DashboardPage = () => {
   return (
@@ -72,6 +73,7 @@ const DashboardPage = () => {
             <CommentList />
           </TabsContent>
           <TabsContent value="users">
+            <AddUser />
             <UserList />
           </TabsContent>
         </Tabs>

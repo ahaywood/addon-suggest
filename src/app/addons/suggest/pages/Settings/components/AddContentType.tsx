@@ -5,7 +5,7 @@ import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
 import { RefreshCw, X } from "lucide-react";
 import React from "react";
-import { tagColors } from "../../../lib/tagColors";
+import { tagColors } from "../../../lib/helpers/tagColors";
 import { ContentTypeIconPicker } from "./ContentTypeIconPicker";
 
 const AddContentType = ({ closePanel }: { closePanel: () => void }) => {

@@ -54,16 +54,6 @@ const AccountPage = () => {
               </div>
             </div>
 
-            {/* username */}
-            <div className="field">
-              <Label htmlFor="username">Username</Label>
-              <Input id="username" placeholder="Username" />
-              <p className="text-sm text-muted-foreground">
-                This is your unique identifier and will be visible to other
-                users.
-              </p>
-            </div>
-
             {/* email */}
             <div className="field">
               <Label htmlFor="email">Email Address</Label>

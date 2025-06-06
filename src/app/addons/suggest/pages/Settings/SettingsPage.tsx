@@ -12,7 +12,7 @@ export const SettingsPage = () => {
 
       <div className="mb-10">
         <h1 className="page-title">Settings</h1>
-        <p className="page-description">Something Something</p>
+        <p className="page-description">Manage configurations and settings</p>
       </div>
 
       <div className="flex flex-col gap-5">

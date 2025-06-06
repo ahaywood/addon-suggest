@@ -5,7 +5,7 @@ import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
 import { RefreshCw, X } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { tagColors } from "../../../lib/tagColors";
+import { tagColors } from "../../../lib/helpers/tagColors";
 
 const AddTag = ({ closePanel }: { closePanel: () => void }) => {
   const [selectedColor, setSelectedColor] = useState<number | null>(null);

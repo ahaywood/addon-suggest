@@ -20,7 +20,7 @@ const FilterBar = () => {
   return (
     <div
       className={`flex justify-between items-center gap-2
-      ${isOpen ? "bg-white w-full" : "bg-transparent"}
+      ${isOpen ? "w-full" : ""}
     `}
     >
       <Button
@@ -44,10 +44,10 @@ const FilterBar = () => {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="flex flex-wrap gap-2 bg-zinc-50 rounded-md relative mb-7 p-5 w-full">
+            <div className="flex flex-wrap gap-2 bg-zinc-50 dark:bg-zinc-900 rounded-md relative mb-7 p-5 w-full">
               <Button
                 className="hover:bg-violet-500 hover:text-white absolute right-1 top-1"
-                variant="secondary"
+                variant="ghost"
                 role="button"
                 onClick={(e) => {
                   e.preventDefault();

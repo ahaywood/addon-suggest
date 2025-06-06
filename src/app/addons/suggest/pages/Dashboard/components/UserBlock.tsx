@@ -2,7 +2,7 @@
 
 import { link } from "@/app/shared/links";
 import { Avatar } from "../../../components/Avatar";
-import { Ellipsis, EyeOff, Star, Trash } from "lucide-react";
+import { Ban, Clock, Ellipsis, EyeOff, Star, Trash, User } from "lucide-react";
 import { Button } from "@/app/components/ui/button";
 import {
   DropdownMenu,
@@ -30,7 +30,11 @@ const UserBlock = () => {
         </p>
       </div>
 
-      <div>
+      <div className="flex items-center gap-x-2">
+        <Badge className="bg-zinc-800 text-white text-xs">
+          <Clock className="size-3 " />
+          Pending
+        </Badge>
         <Badge className="bg-yellow-300 text-yellow-700 text-xs">
           <Star className="size-3 fill-yellow-700 text-yellow-700" />
           Admin
@@ -46,12 +50,20 @@ const UserBlock = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem>
-              <EyeOff />
-              Hide Comment
+              <Star />
+              Make an Admin
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <User />
+              Make a User
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Ban />
+              Block User
             </DropdownMenuItem>
             <DropdownMenuItem>
               <Trash />
-              Delete Comment
+              Delete User
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
