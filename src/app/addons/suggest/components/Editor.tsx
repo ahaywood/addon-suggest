@@ -13,11 +13,14 @@ import {
   Paperclip,
   TextQuoteIcon,
 } from "lucide-react";
+import { marked } from "marked";
 import { useRef, useState } from "react";
 
 const Editor = ({ id, className = "" }: { id: string; className?: string }) => {
   const [isDragging, setIsDragging] = useState(false);
+  const [editorMode, setEditorMode] = useState<"write" | "preview">("write");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [markdown, setMarkdown] = useState("");
 
   // Generic text wrapping function
   const wrapText = (wrapper: string) => {
@@ -106,14 +109,20 @@ const Editor = ({ id, className = "" }: { id: string; className?: string }) => {
   };
 
   // Event handlers using the generic functions
-  const boldText = (e: React.MouseEvent<HTMLButtonElement> | KeyboardEvent) => {
+  const boldText = (
+    e:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLTextAreaElement>
+  ) => {
     e?.preventDefault();
     e?.stopPropagation();
     wrapText("**");
   };
 
   const italicText = (
-    e: React.MouseEvent<HTMLButtonElement> | KeyboardEvent
+    e:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLTextAreaElement>
   ) => {
     e?.preventDefault();
     e?.stopPropagation();
@@ -238,69 +247,109 @@ const Editor = ({ id, className = "" }: { id: string; className?: string }) => {
         <div className="flex gap-2 font-mono text-xs px-3 py-2">
           <Button
             variant="ghost"
-            className="uppercase tracking-wider font-bold cursor-pointer bg-violet-500 text-white rounded-md px-2 py-1"
+            className={`uppercase tracking-wider font-bold cursor-pointer rounded-md px-2 py-1
+              ${
+                editorMode === "write"
+                  ? "bg-violet-500 text-white"
+                  : "text-zinc-400"
+              }`}
+            role="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setEditorMode("write");
+            }}
           >
             Write
           </Button>
           <Button
             variant="ghost"
-            className="uppercase tracking-wider font-bold cursor-pointer text-zinc-400"
+            className={`uppercase tracking-wider font-bold cursor-pointer rounded-md px-2 py-1
+              ${
+                editorMode === "preview"
+                  ? "bg-violet-500 text-white"
+                  : "text-zinc-400"
+              }`}
+            role="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setEditorMode("preview");
+            }}
           >
             Preview
           </Button>
         </div>
 
-        <div className="flex items-center gap-1 py-2 px-3">
-          <Button role="button" variant="ghost" onClick={(e) => boldText(e)}>
-            <BoldIcon className="size-4" />
-          </Button>
-          <Button role="button" variant="ghost" onClick={(e) => italicText(e)}>
-            <ItalicIcon className="size-4" />
-          </Button>
-          <Button variant="ghost" onClick={(e) => checklistText(e)}>
-            <ListChecks className="size-4" />
-          </Button>
-          <Button variant="ghost" onClick={(e) => unorderedListText(e)}>
-            <ListIcon className="size-4" />
-          </Button>
-          <Button variant="ghost" onClick={(e) => orderedListText(e)}>
-            <ListOrderedIcon className="size-4" />
-          </Button>
-          <Button variant="ghost" onClick={(e) => blockquoteText(e)}>
-            <TextQuoteIcon className="size-4" />
-          </Button>
-          <Button variant="ghost" onClick={(e) => linkText(e)}>
-            <LinkIcon className="size-4" />
-          </Button>
-        </div>
+        {editorMode === "write" && (
+          <div className="flex items-center gap-1 py-2 px-3">
+            <Button role="button" variant="ghost" onClick={(e) => boldText(e)}>
+              <BoldIcon className="size-4" />
+            </Button>
+            <Button
+              role="button"
+              variant="ghost"
+              onClick={(e) => italicText(e)}
+            >
+              <ItalicIcon className="size-4" />
+            </Button>
+            <Button variant="ghost" onClick={(e) => checklistText(e)}>
+              <ListChecks className="size-4" />
+            </Button>
+            <Button variant="ghost" onClick={(e) => unorderedListText(e)}>
+              <ListIcon className="size-4" />
+            </Button>
+            <Button variant="ghost" onClick={(e) => orderedListText(e)}>
+              <ListOrderedIcon className="size-4" />
+            </Button>
+            <Button variant="ghost" onClick={(e) => blockquoteText(e)}>
+              <TextQuoteIcon className="size-4" />
+            </Button>
+            <Button variant="ghost" onClick={(e) => linkText(e)}>
+              <LinkIcon className="size-4" />
+            </Button>
+          </div>
+        )}
       </div>
-      <div className="p-3 border-b-1 border-zinc-300">
-        <Textarea
-          ref={textareaRef}
-          id={id}
-          className={`${
-            isDragging ? "border-violet-500 border-2 border-dashed" : ""
-          } ${className}`}
-          placeholder="Use Markdown to format"
-          onKeyDown={(e) => {
-            if (e.metaKey && e.key === "b") boldText(e);
-            if (e.metaKey && e.key === "i") italicText(e);
-            if (e.key === "Enter") handleEnterContinuation(e);
-          }}
-          onDrop={() => console.log("dropping")}
-          onDragOver={() => setIsDragging(true)}
-          onDragLeave={() => setIsDragging(false)}
+      {editorMode === "write" ? (
+        <>
+          <div className="p-3 border-b-1 border-zinc-300">
+            <Textarea
+              onChange={(e) => setMarkdown(e.target.value)}
+              defaultValue={markdown}
+              ref={textareaRef}
+              id={id}
+              className={`${
+                isDragging ? "border-violet-500 border-2 border-dashed" : ""
+              } ${className}`}
+              placeholder="Use Markdown to format"
+              onKeyDown={(e) => {
+                if (e.metaKey && e.key === "b") boldText(e);
+                if (e.metaKey && e.key === "i") italicText(e);
+                if (e.key === "Enter") handleEnterContinuation(e);
+              }}
+              onDrop={() => console.log("dropping")}
+              onDragOver={() => setIsDragging(true)}
+              onDragLeave={() => setIsDragging(false)}
+            />
+          </div>
+          <div className="p-1">
+            <Button
+              className="text-xs text-zinc-500 flex items-center gap-2"
+              variant="ghost"
+              role="button"
+            >
+              <Paperclip className="size-4" />
+              Paste, drop, or click to add files
+            </Button>
+          </div>
+        </>
+      ) : (
+        <div
+          className="editor-preview p-5"
+          dangerouslySetInnerHTML={{ __html: marked(markdown) }}
         />
-      </div>
-      <div className="p-1">
-        <Button
-          className="text-xs text-zinc-500 flex items-center gap-2"
-          variant="ghost"
-        >
-          <Paperclip className="size-4" />
-          Paste, drop, or click to add files
-        </Button>
-      </div>
+      )}
     </div>
   );
 };

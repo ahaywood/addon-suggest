@@ -1,46 +1,24 @@
 "use client";
 
-import React from "react";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
-import { Textarea } from "@/app/components/ui/textarea";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/app/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/app/components/ui/avatar";
 import { Separator } from "@/app/components/ui/separator";
 import { Button } from "@/app/components/ui/button";
-import { ArrowLeft, Settings } from "lucide-react";
-import { Badge } from "@/app/components/ui/badge";
+import { ArrowLeft } from "lucide-react";
 import { Checkbox } from "@/app/components/ui/checkbox";
 import { link } from "@/app/shared/links";
 import { Switch } from "@/app/components/ui/switch";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/app/components/ui/popover";
-import { Editor } from "../../components/Editor";
-import {
-  SelectContent,
-  SelectValue,
-  SelectItem,
-  SelectTrigger,
-  Select,
-} from "@/app/components/ui/select";
 import { MultiSelectCombobox } from "../../components/MultiSelectCombobox";
 import { Combobox } from "../../components/Combobox";
+import { Editor } from "../../components/Editor";
+import { BackButton } from "../../components/BackButton";
 
 export const NewPage = () => {
   return (
     <>
-      <Button variant="ghost" className="absolute top-3 left-3" asChild>
-        <a href={link("/suggest/dashboard")}>
-          <ArrowLeft />
-          Back
-        </a>
-      </Button>
+      <BackButton />
+
       <header className="flex items-center gap-5">
         <Avatar className="size-[70px]">
           {/* <AvatarImage src="https://github.com/shadcn.png" /> */}

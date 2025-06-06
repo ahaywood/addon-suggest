@@ -25,27 +25,102 @@
   @apply flex items-center justify-center;
 }
 
-html,
-body {
-  @apply font-sans;
+@utility box {
+  @apply border-1 border-zinc-200 rounded-md;
 }
 
-header {
-  @apply mb-10;
-}
+@layer suggest {
+  html,
+  body {
+    @apply font-sans;
+  }
 
-.page-title {
-  @apply text-2xl font-bold;
-}
+  header {
+    @apply mb-10;
+  }
 
-.page-description {
-  @apply text-muted-foreground text-sm;
-}
+  .page-title {
+    @apply text-2xl font-bold;
+  }
 
-.field {
-  @apply grid w-full items-center gap-1.5;
-}
+  .page-description {
+    @apply text-muted-foreground text-sm;
+  }
 
-aside .separator {
-  @apply mt-6 mb-3;
+  .section-title {
+    @apply uppercase font-mono text-sm font-bold tracking-wider mb-2;
+  }
+
+  .board-buttons {
+    @apply flex items-center gap-x-8;
+  }
+
+  .filter-label {
+    @apply text-sm text-zinc-400 min-w-[70px] text-right;
+  }
+
+  .section-description {
+    @apply text-muted-foreground text-sm;
+  }
+
+  .field {
+    @apply grid w-full items-center gap-1.5;
+  }
+
+  aside .separator {
+    @apply mt-6 mb-3;
+  }
+
+  .editor-preview {
+    h1,
+    h2,
+    h3,
+    h4 {
+      @apply mb-4;
+    }
+
+    h1 {
+      @apply text-2xl font-bold;
+    }
+
+    h2 {
+      @apply text-xl font-bold;
+    }
+
+    h3 {
+      @apply text-lg font-bold;
+    }
+
+    h4 {
+      @apply text-base font-bold;
+    }
+
+    ul {
+      @apply list-disc;
+    }
+
+    ol {
+      @apply list-decimal;
+    }
+
+    li {
+      @apply ml-4;
+    }
+
+    p {
+      @apply mb-4;
+    }
+
+    a {
+      @apply text-violet-500 underline font-bold hover:no-underline hover:text-violet-700;
+    }
+
+    blockquote {
+      @apply border-l-4 border-zinc-300 pl-4;
+    }
+
+    code {
+      @apply bg-violet-950 px-1 py-0.5 rounded-md;
+    }
+  }
 }

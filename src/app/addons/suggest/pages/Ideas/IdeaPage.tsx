@@ -6,51 +6,52 @@ import { CommentList } from "../../components/CommentList";
 import { CommentForm } from "./components/CommentForm";
 import { IdeaDetails } from "./components/IdeaDetails";
 import { DeleteIdeaButton } from "./components/DeleteIdeaButton";
+import { BackButton } from "../../components/BackButton";
 
 const IdeaPage = () => {
   return (
-    <>
-      <Button variant="ghost" className="absolute top-3 left-3" asChild>
-        <a href={link("/suggest/dashboard")}>
-          <ArrowLeft />
-          Back
-        </a>
-      </Button>
+    <div className="grid grid-cols-[3fr_300px] gap-x-[100px]">
+      <BackButton />
 
-      <IdeaDetails />
+      <div>
+        <IdeaDetails />
 
-      <div className="pl-[80px]">
-        <p className="mb-10">
-          I've been seeing a lot of content about crabbing lately. Should I make
-          a video explaining the trend and maybe even try it out myself? I'd
-          love to hear your thoughts!
-        </p>
+        <div className="pl-[80px]">
+          <p className="mb-10">
+            I've been seeing a lot of content about crabbing lately. Should I
+            make a video explaining the trend and maybe even try it out myself?
+            I'd love to hear your thoughts!
+          </p>
 
-        <div className="flex gap-x-3 mb-10">
-          <Button variant="secondary" asChild>
-            <a href={link("/suggest/new")}>
-              <Edit />
-              Edit
-            </a>
-          </Button>
+          <div className="flex gap-x-3 mb-10">
+            <Button variant="secondary" asChild>
+              <a href={link("/suggest/new")}>
+                <Edit />
+                Edit
+              </a>
+            </Button>
 
-          <DeleteIdeaButton />
+            <DeleteIdeaButton />
+          </div>
+
+          <Separator className="mb-10" />
+
+          <h2 className="font-bold text-xl flex gap-x-2 mb-6">
+            <MessageCircle />
+            Comments
+          </h2>
+
+          <CommentList />
+
+          <Separator className="mb-10" />
+
+          <CommentForm />
         </div>
-
-        <Separator className="mb-10" />
-
-        <h2 className="font-bold text-xl flex gap-x-2 mb-6">
-          <MessageCircle />
-          Comments
-        </h2>
-
-        <CommentList />
-
-        <Separator className="mb-10" />
-
-        <CommentForm />
       </div>
-    </>
+
+      {/* stats in the sidebar - admin only */}
+      <aside></aside>
+    </div>
   );
 };
 

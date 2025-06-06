@@ -13,11 +13,20 @@ import {
   DropdownMenuItem,
 } from "@/app/components/ui/dropdown-menu";
 import { DropdownMenuTrigger } from "@/app/components/ui/dropdown-menu";
-import { Ellipsis, Eye, EyeOff, Pencil, Star, Trash } from "lucide-react";
+import { link } from "@/app/shared/links";
+import {
+  CornerDownRight,
+  Ellipsis,
+  Eye,
+  EyeOff,
+  Pencil,
+  Star,
+  Trash,
+} from "lucide-react";
 
 const CommentBlock = () => {
   return (
-    <div className="flex gap-x-5 border-1 border-zinc-200 p-5 rounded-lg">
+    <div className="flex gap-x-5 p-5 box">
       <div>
         <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" />
@@ -26,6 +35,17 @@ const CommentBlock = () => {
       </div>
 
       <div className="flex-1">
+        {/* only display this on the admin page */}
+        <a
+          href={`${link("/suggest/:id", { id: "1" })}#comment-1`}
+          className="font-mono tracking-wider uppercase flex items-center gap-x-1 hover:underline underline-offset-2"
+        >
+          <CornerDownRight
+            size={16}
+            className="text-zinc-400 relative -top-[2px]"
+          />
+          YouTube Idea
+        </a>
         <div className="flex justify-between items-center">
           <div className="mb-2 flex gap-x-2 items-center flex-1">
             <div className="text-lg flex items-center gap-x-2">

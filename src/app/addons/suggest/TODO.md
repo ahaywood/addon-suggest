@@ -1,3 +1,8 @@
+# Global
+- [ ] Dark Mode
+- [ ] Mobile Pass
+- [ ] Add Meta data - especially for the title bar
+
 # Boards
 - [ ] Make the list dynamic
 - [ ] Ability to filter by board
@@ -19,3 +24,9 @@
 
 ## Comments
 - [ ] Ability to add a comment
+
+# New Idea
+- [ ] When toggling between the "write" and "preview" mode, make the transition smooth instead of snappy
+- [ ] Handle the uploading of images
+  - [ ] Button at the bottom of the textarea needs to work
+  - [ ] Need to be able to drag and drop images onto the Textarea
