@@ -7,8 +7,9 @@ import {
   DropdownMenuTrigger,
 } from "@/app/components/ui/dropdown-menu";
 import { link } from "@/app/shared/links";
-import { Monitor, Moon, Plus, Sun } from "lucide-react";
+import { Plus } from "lucide-react";
 import { LayoutProps } from "rwsdk/router";
+import { ThemePicker } from "../components/ThemePicker";
 
 export const Layout = ({ children }: LayoutProps) => {
   return (
@@ -21,22 +22,7 @@ export const Layout = ({ children }: LayoutProps) => {
           </a>
         </Button>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Sun />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem>
-              <Sun /> Light Mode
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Moon /> Dark Mode
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Monitor /> System Default
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <ThemePicker />
 
         <DropdownMenu>
           <DropdownMenuTrigger className="cursor-pointer">

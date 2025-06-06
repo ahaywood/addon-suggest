@@ -11,6 +11,13 @@ export const Document: React.FC<{ children: React.ReactNode }> = ({
       <title>Suggest Add-On</title>
       <link rel="modulepreload" href="/src/client.tsx" />
       <link rel="icon" href="/favicon.png" type="image/png" />
+
+      {/* including this within the head to prevent FOUC */}
+      <script type="text/javascript">
+        document.documentElement.classList.toggle( "dark", localStorage.theme
+        === "dark" || (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches) );
+      </script>
     </head>
     <body>
       <div id="root">{children}</div>

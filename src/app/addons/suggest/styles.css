@@ -26,7 +26,7 @@
 }
 
 @utility box {
-  @apply border-1 border-zinc-200 rounded-md;
+  @apply border-1 border-zinc-200 dark:border-zinc-800 rounded-md;
 }
 
 @layer suggest {
@@ -53,6 +53,10 @@
 
   .button-group {
     @apply flex items-center gap-x-8;
+  }
+
+  .command-group-grid [role="group"] {
+    @apply flex flex-wrap;
   }
 
   .filter-label {

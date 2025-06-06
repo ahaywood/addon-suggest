@@ -1,14 +1,7 @@
 import { Badge } from "@/app/components/ui/badge";
 import { Button } from "@/app/components/ui/button";
 import { link } from "@/app/shared/links";
-import {
-  ChevronUp,
-  MessageCircle,
-  Eye,
-  EyeOff,
-  ArrowRight,
-} from "lucide-react";
-import { Avatar } from "../../../components/Avatar";
+import { ChevronUp, MessageCircle, EyeOff, ArrowRight } from "lucide-react";
 
 export const IdeaBlock = () => {
   return (

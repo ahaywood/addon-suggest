@@ -1,7 +1,7 @@
 import { Button } from "@/app/components/ui/button";
 import { Separator } from "@/app/components/ui/separator";
 import { link } from "@/app/shared/links";
-import { ArrowLeft, Edit, MessageCircle } from "lucide-react";
+import { Edit, MessageCircle } from "lucide-react";
 import { CommentList } from "../../components/CommentList";
 import { CommentForm } from "./components/CommentForm";
 import { IdeaDetails } from "./components/IdeaDetails";

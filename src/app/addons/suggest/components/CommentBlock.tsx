@@ -7,12 +7,12 @@ import {
 } from "@/app/components/ui/avatar";
 import { Badge } from "@/app/components/ui/badge";
 import { Button } from "@/app/components/ui/button";
-import { DropdownMenu } from "@/app/components/ui/dropdown-menu";
 import {
+  DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuTrigger,
 } from "@/app/components/ui/dropdown-menu";
-import { DropdownMenuTrigger } from "@/app/components/ui/dropdown-menu";
 import { link } from "@/app/shared/links";
 import {
   CornerDownRight,
@@ -26,7 +26,7 @@ import {
 
 const CommentBlock = () => {
   return (
-    <div className="flex gap-x-5 p-5 box">
+    <div className="flex gap-x-5 p-5 box relative">
       <div>
         <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" />
@@ -65,7 +65,7 @@ const CommentBlock = () => {
               Posted 7 hours ago
             </div>{" "}
           </div>
-          <div className="flex gap-x-2">
+          <div className="absolute top-3 right-3">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost">

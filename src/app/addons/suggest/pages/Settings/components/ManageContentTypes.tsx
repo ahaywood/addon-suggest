@@ -30,7 +30,7 @@ const ManageContentTypes = () => {
               >
                 <ChevronRight size={16} />
               </motion.div>
-              Content Types
+              Types
             </h2>
           </button>
           <p className="section-description">

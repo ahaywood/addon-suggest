@@ -6,6 +6,7 @@ import { Label } from "@/app/components/ui/label";
 import { RefreshCw, X } from "lucide-react";
 import React from "react";
 import { tagColors } from "../../../lib/tagColors";
+import { ContentTypeIconPicker } from "./ContentTypeIconPicker";
 
 const AddContentType = ({ closePanel }: { closePanel: () => void }) => {
   return (
@@ -17,25 +18,11 @@ const AddContentType = ({ closePanel }: { closePanel: () => void }) => {
       >
         <X />
       </Button>
-      <h3 className="text-lg font-bold mb-5">Add New Content Type</h3>
+      <h3 className="text-lg font-bold mb-5">Add New Type</h3>
       <form className="flex gap-5 items-end">
         <div className="field flex-0">
-          <Label>Color</Label>
-          <div className="flex gap-2">
-            <Button
-              variant="secondary"
-              type="button"
-              className="text-white"
-              style={{ backgroundColor: tagColors[0].hex }}
-            >
-              <RefreshCw />
-            </Button>
-            <Input
-              name="color"
-              className="w-[100px]"
-              defaultValue={tagColors[0].hex}
-            />
-          </div>
+          <Label>Icon</Label>
+          <ContentTypeIconPicker />
         </div>
 
         <div className="field">

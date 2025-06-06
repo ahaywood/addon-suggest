@@ -17,10 +17,12 @@ import { Swatch } from "../../../components/Swatch";
 const ContentTypeBlock = () => {
   return (
     <div className="box p-5 flex items-center gap-x-4">
-      <Swatch />
+      <div className="self-start">
+        <Pencil className="size-5 text-muted-foreground relative top-1" />
+      </div>
 
       <div className="flex-1">
-        <h3 className="text-lg font-bold">Content Type Block</h3>
+        <h3 className="text-lg font-bold">Type Block</h3>
         <p className="section-description">Something something</p>
       </div>
 

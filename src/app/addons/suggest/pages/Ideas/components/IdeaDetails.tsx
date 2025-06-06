@@ -13,7 +13,7 @@ const IdeaDetails = () => {
         <div>
           <Button
             variant="ghost"
-            className="bg-zinc-100 flex flex-col min-h-[100px] gap-1 hover:bg-violet-500 hover:text-white cursor-pointer"
+            className="bg-zinc-100 dark:bg-zinc-900 flex flex-col min-h-[100px] gap-1 hover:bg-violet-500 hover:text-white cursor-pointer"
           >
             <div className="-mb-2">
               <ChevronUp size={30} className="size-8" />
