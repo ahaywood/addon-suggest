@@ -22,11 +22,15 @@ import {
   PopoverTrigger,
 } from "@/app/components/ui/popover";
 import { Editor } from "../../components/Editor";
-import { SelectContent } from "@/app/components/ui/select";
-import { SelectValue } from "@/app/components/ui/select";
-import { SelectTrigger } from "@/app/components/ui/select";
-import { SelectItem } from "@/app/components/ui/select";
-import { Select } from "@/app/components/ui/select";
+import {
+  SelectContent,
+  SelectValue,
+  SelectItem,
+  SelectTrigger,
+  Select,
+} from "@/app/components/ui/select";
+import { MultiSelectCombobox } from "../../components/MultiSelectCombobox";
+import { Combobox } from "../../components/Combobox";
 
 export const NewPage = () => {
   return (
@@ -55,7 +59,7 @@ export const NewPage = () => {
 
         <form
           action=""
-          className="grid grid-cols-[3fr_1.5fr] gap-x-[100px] w-full gap-y-5"
+          className="grid grid-cols-[3fr_300px] gap-x-[100px] w-full gap-y-5"
         >
           <section className="flex flex-col gap-y-6">
             <div className="field">
@@ -90,85 +94,124 @@ export const NewPage = () => {
           <aside className="border-l pl-[30px]">
             <section>
               <div className="flex justify-between items-center">
-                <Select>
-                  <SelectTrigger variant="ghost" className="w-full">
-                    <Label>Status</Label>
-                    <Settings />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="light">Light</SelectItem>
-                    <SelectItem value="dark">Dark</SelectItem>
-                    <SelectItem value="system">System</SelectItem>
-                  </SelectContent>
-                </Select>
+                <MultiSelectCombobox
+                  label="Status"
+                  placeholder="Select a status"
+                  notFoundMessage="No status found"
+                  emptyMessage="No Status"
+                  data={[
+                    {
+                      value: "next.js",
+                      label: "Next.js",
+                    },
+                    {
+                      value: "sveltekit",
+                      label: "SvelteKit",
+                    },
+                    {
+                      value: "nuxt.js",
+                      label: "Nuxt.js",
+                    },
+                    {
+                      value: "remix",
+                      label: "Remix",
+                    },
+                    {
+                      value: "astro",
+                      label: "Astro",
+                    },
+                  ]}
+                />
               </div>
-              <Badge>Finished</Badge>
             </section>
 
             <Separator className="separator" />
 
             <section>
-              <div className="flex justify-between items-center">
-                <Label>Board</Label>
-                <Button variant="ghost">
-                  <Settings />
-                </Button>
-              </div>
-              <Badge>YouTube</Badge>
+              <Combobox
+                label="Board"
+                placeholder="Select a board"
+                notFoundMessage="No board found"
+                emptyMessage="No Board"
+                data={[
+                  {
+                    value: "next.js",
+                    label: "Next.js",
+                  },
+                  {
+                    value: "sveltekit",
+                    label: "SvelteKit",
+                  },
+                  {
+                    value: "nuxt.js",
+                    label: "Nuxt.js",
+                  },
+                  {
+                    value: "remix",
+                    label: "Remix",
+                  },
+                  {
+                    value: "astro",
+                    label: "Astro",
+                  },
+                ]}
+              />
             </section>
 
             <Separator className="separator" />
 
             <section>
-              <div className="flex justify-between items-center">
-                <Label>Tags</Label>
-                <Button variant="ghost">
-                  <Settings />
-                </Button>
-              </div>
-              <Badge>YouTube</Badge>
+              <MultiSelectCombobox
+                label="Tags"
+                placeholder="Select a tag"
+                notFoundMessage="No tag found"
+                emptyMessage="No Tag"
+                data={[
+                  {
+                    value: "hero",
+                    label: "Hero",
+                  },
+                  {
+                    value: "helper",
+                    label: "Helper",
+                  },
+                ]}
+              />
             </section>
 
             <Separator className="separator" />
 
             <section>
-              <div className="flex justify-between items-center">
-                <Label>Type</Label>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button variant="ghost">
-                      <Settings />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-[150px]">
-                    <ul className="flex flex-col gap-2">
-                      <li className="flex items-center gap-2">
-                        <Checkbox id="youtube" name="youtube" />
-                        <Label htmlFor="youtube">YouTube</Label>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <Checkbox id="tiktok" name="tiktok" />
-                        <Label htmlFor="tiktok">TikTok</Label>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <Checkbox id="instagram" name="instagram" />
-                        <Label htmlFor="instagram">Instagram</Label>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <Checkbox id="facebook" name="facebook" />
-                        <Label htmlFor="facebook">Facebook</Label>
-                      </li>
-                    </ul>
-                  </PopoverContent>
-                </Popover>
-              </div>
-              <Badge>YouTube</Badge>
+              <Combobox
+                label="Type"
+                placeholder="Select a type"
+                notFoundMessage="No type found"
+                emptyMessage="No Type"
+                data={[
+                  {
+                    value: "youtube",
+                    label: "YouTube",
+                  },
+                  {
+                    value: "tiktok",
+                    label: "TikTok",
+                  },
+                  {
+                    value: "instagram",
+                    label: "Instagram",
+                  },
+                  {
+                    value: "facebook",
+                    label: "Facebook",
+                  },
+                ]}
+              />
             </section>
 
             <Separator className="separator !mb-6" />
 
             <section>
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-2">
                 <Switch />
                 <Label>Public?</Label>
               </div>

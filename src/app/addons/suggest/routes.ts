@@ -6,6 +6,7 @@ import { SettingsPage } from "./pages/Settings/SettingsPage";
 import { Layout } from "./pages/Layout";
 import { UserListPage } from "./pages/User/UserListPage";
 import { IndividualUserPage } from "./pages/User/IndividualUserPage";
+import { BoardPage } from "./pages/Board/BoardPage";
 
 const routes = layout(Layout, [
   index(
@@ -20,6 +21,7 @@ const routes = layout(Layout, [
   route("/dashboard", DashboardPage),
   route("/new", NewPage),
   route("/settings", SettingsPage),
+  route("/board", BoardPage),
   route("/users", UserListPage),
   route("/user/:id", IndividualUserPage),
   route("/:id", IdeaPage),

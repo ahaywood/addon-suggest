@@ -1,6 +1,24 @@
 @theme {
   --font-sans: "Inter", sans-serif;
   --font-mono: monospace;
+
+  --color-jaffa: "#e47947";
+  --color-mikdado-yellow: #f9c80c;
+  --color-lavender-indigo: "#8d51ff";
+  --color-amaranth: #e93546;
+  --color-dullCyan: #44bbcd;
+  --color-aquamarine-blue: #71e6d4;
+  --color-fern: #70ad6e;
+  --color-eerie-Black: #beed63;
+  --color-green-mist: #c5c393;
+  --color-sasquatch-socks: #ff4d7f;
+  --color-wedgewood: #4c688e;
+  --color-sea-pink: #e37f7c;
+  --color-tundara: #483c46;
+  --color-rose-bud: #f5a698;
+  --color-ash-gray: #b4c2b8;
+  --color-oracle: #3c6e71;
+  --color-camelot: #883a55;
 }
 
 @utility center {
