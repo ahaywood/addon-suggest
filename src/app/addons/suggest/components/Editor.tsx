@@ -17,38 +17,99 @@ import { useRef, useState } from "react";
 
 const Editor = ({ id, className = "" }: { id: string; className?: string }) => {
   const [isDragging, setIsDragging] = useState(false);
-
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  // Generic text wrapping function
+  const wrapText = (wrapper: string) => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = textarea.value.substring(start, end);
+
+    if (selectedText) {
+      const newValue =
+        textarea.value.substring(0, start) +
+        `${wrapper}${selectedText}${wrapper}` +
+        textarea.value.substring(end);
+      textarea.value = newValue;
+      textarea.focus();
+      textarea.setSelectionRange(start + wrapper.length, end + wrapper.length);
+    } else {
+      const doubleWrapper = wrapper + wrapper;
+      const newValue =
+        textarea.value.substring(0, start) +
+        doubleWrapper +
+        textarea.value.substring(end);
+      textarea.value = newValue;
+      textarea.focus();
+      textarea.setSelectionRange(
+        start + wrapper.length,
+        start + wrapper.length
+      );
+    }
+  };
+
+  // Generic line formatting function
+  const formatLine = (
+    marker: string,
+    getNextMarker?: (prevLine: string) => string
+  ) => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const value = textarea.value;
+
+    // Find line boundaries
+    let lineStart = start;
+    while (lineStart > 0 && value[lineStart - 1] !== "\n") {
+      lineStart--;
+    }
+
+    const lineContent = value.substring(lineStart);
+
+    if (lineContent.startsWith(marker)) {
+      // Remove marker
+      const newValue =
+        value.substring(0, lineStart) +
+        lineContent.substring(marker.length) +
+        value.substring(lineStart + lineContent.length);
+      textarea.value = newValue;
+      textarea.focus();
+      textarea.setSelectionRange(start - marker.length, start - marker.length);
+    } else {
+      // Add marker (potentially dynamic)
+      let actualMarker = marker;
+      if (getNextMarker && lineStart > 0) {
+        // Get previous line for context
+        let prevLineStart = lineStart - 2;
+        while (prevLineStart > 0 && value[prevLineStart - 1] !== "\n") {
+          prevLineStart--;
+        }
+        const prevLineContent = value.substring(prevLineStart, lineStart - 1);
+        actualMarker = getNextMarker(prevLineContent);
+      }
+
+      const newValue =
+        value.substring(0, lineStart) +
+        actualMarker +
+        value.substring(lineStart);
+      textarea.value = newValue;
+      textarea.focus();
+      textarea.setSelectionRange(
+        start + actualMarker.length,
+        start + actualMarker.length
+      );
+    }
+  };
+
+  // Event handlers using the generic functions
   const boldText = (e: React.MouseEvent<HTMLButtonElement> | KeyboardEvent) => {
     e?.preventDefault();
     e?.stopPropagation();
-    // if there is selected text within the textarea, wrap it with ** ** for markdown, bold
-    const textarea = textareaRef.current;
-    if (textarea) {
-      const start = textarea.selectionStart;
-      const end = textarea.selectionEnd;
-      const selectedText = textarea.value.substring(start, end);
-
-      if (selectedText) {
-        const newValue =
-          textarea.value.substring(0, start) +
-          `**${selectedText}**` +
-          textarea.value.substring(end);
-        textarea.value = newValue;
-        textarea.focus();
-        textarea.setSelectionRange(start + 2, end + 2);
-      } else {
-        // if there's no selected text, add ** ** where the cursor is or the end of the line
-        const newValue =
-          textarea.value.substring(0, start) +
-          `****` +
-          textarea.value.substring(end);
-        textarea.value = newValue;
-        textarea.focus();
-        textarea.setSelectionRange(start + 2, start + 2);
-      }
-    }
+    wrapText("**");
   };
 
   const italicText = (
@@ -56,32 +117,7 @@ const Editor = ({ id, className = "" }: { id: string; className?: string }) => {
   ) => {
     e?.preventDefault();
     e?.stopPropagation();
-    // if there is selected text within the textarea, wrap it with ** ** for markdown, bold
-    const textarea = textareaRef.current;
-    if (textarea) {
-      const start = textarea.selectionStart;
-      const end = textarea.selectionEnd;
-      const selectedText = textarea.value.substring(start, end);
-
-      if (selectedText) {
-        const newValue =
-          textarea.value.substring(0, start) +
-          `_${selectedText}_` +
-          textarea.value.substring(end);
-        textarea.value = newValue;
-        textarea.focus();
-        textarea.setSelectionRange(start + 2, end + 2);
-      } else {
-        // if there's no selected text, add _ _ where the cursor is or the end of the line
-        const newValue =
-          textarea.value.substring(0, start) +
-          `__` +
-          textarea.value.substring(end);
-        textarea.value = newValue;
-        textarea.focus();
-        textarea.setSelectionRange(start + 2, start + 2);
-      }
-    }
+    wrapText("_");
   };
 
   const blockquoteText = (
@@ -89,135 +125,7 @@ const Editor = ({ id, className = "" }: { id: string; className?: string }) => {
   ) => {
     e?.preventDefault();
     e?.stopPropagation();
-
-    const textarea = textareaRef.current;
-    if (textarea) {
-      const start = textarea.selectionStart;
-      const value = textarea.value;
-
-      // Find the beginning of the current line
-      let lineStart = start;
-      while (lineStart > 0 && value[lineStart - 1] !== "\n") {
-        lineStart--;
-      }
-
-      // Check if line already starts with '> '
-      const lineContent = value.substring(lineStart);
-      if (lineContent.startsWith("> ")) {
-        // Remove the blockquote
-        const newValue =
-          value.substring(0, lineStart) +
-          lineContent.substring(2) +
-          value.substring(lineStart + lineContent.length);
-        textarea.value = newValue;
-        textarea.focus();
-        textarea.setSelectionRange(start - 2, start - 2);
-      } else {
-        // Add the blockquote
-        const newValue =
-          value.substring(0, lineStart) + "> " + value.substring(lineStart);
-        textarea.value = newValue;
-        textarea.focus();
-        textarea.setSelectionRange(start + 2, start + 2);
-      }
-    }
-  };
-
-  const linkText = (e: React.MouseEvent<HTMLButtonElement> | KeyboardEvent) => {
-    e?.preventDefault();
-    e?.stopPropagation();
-
-    const textarea = textareaRef.current;
-    if (textarea) {
-      const start = textarea.selectionStart;
-      const end = textarea.selectionEnd;
-      const selectedText = textarea.value.substring(start, end);
-      if (selectedText) {
-        const newValue =
-          textarea.value.substring(0, start) +
-          `[${selectedText}](${selectedText})` +
-          textarea.value.substring(end);
-        textarea.value = newValue;
-        textarea.focus();
-        // Select the URL inside the parentheses
-        const urlStart = start + selectedText.length + 3; // after [text](
-        const urlEnd = urlStart + selectedText.length;
-        textarea.setSelectionRange(urlStart, urlEnd);
-      } else {
-        const newValue =
-          textarea.value.substring(0, start) +
-          `[](url)` +
-          textarea.value.substring(end);
-        textarea.value = newValue;
-        textarea.focus();
-        // Select "url" inside parentheses
-        textarea.setSelectionRange(start + 3, start + 6);
-      }
-    }
-  };
-
-  const orderedListText = (
-    e: React.MouseEvent<HTMLButtonElement> | KeyboardEvent
-  ) => {
-    e?.preventDefault();
-    e?.stopPropagation();
-
-    const textarea = textareaRef.current;
-    if (textarea) {
-      const start = textarea.selectionStart;
-      const value = textarea.value;
-
-      // Find the beginning of the current line
-      let lineStart = start;
-      while (lineStart > 0 && value[lineStart - 1] !== "\n") {
-        lineStart--;
-      }
-
-      const lineContent = value.substring(lineStart);
-      const orderPattern = /^(\d+)\. /;
-      const match = lineContent.match(orderPattern);
-
-      if (match) {
-        // Remove the ordered list marker
-        const newValue =
-          value.substring(0, lineStart) +
-          lineContent.substring(match[0].length) +
-          value.substring(lineStart + lineContent.length);
-        textarea.value = newValue;
-        textarea.focus();
-        textarea.setSelectionRange(
-          start - match[0].length,
-          start - match[0].length
-        );
-      } else {
-        // Add ordered list marker - find what number to use
-        let nextNumber = 1;
-
-        // Look at previous line to see if it has a number
-        if (lineStart > 0) {
-          let prevLineStart = lineStart - 2; // Skip the \n
-          while (prevLineStart > 0 && value[prevLineStart - 1] !== "\n") {
-            prevLineStart--;
-          }
-          const prevLineContent = value.substring(prevLineStart, lineStart - 1);
-          const prevMatch = prevLineContent.match(orderPattern);
-          if (prevMatch) {
-            nextNumber = parseInt(prevMatch[1]) + 1;
-          }
-        }
-
-        const newValue =
-          value.substring(0, lineStart) +
-          `${nextNumber}. ` +
-          value.substring(lineStart);
-        textarea.value = newValue;
-        textarea.focus();
-        textarea.setSelectionRange(
-          start + `${nextNumber}. `.length,
-          start + `${nextNumber}. `.length
-        );
-      }
-    }
+    formatLine("> ");
   };
 
   const checklistText = (
@@ -225,38 +133,7 @@ const Editor = ({ id, className = "" }: { id: string; className?: string }) => {
   ) => {
     e?.preventDefault();
     e?.stopPropagation();
-
-    const textarea = textareaRef.current;
-    if (textarea) {
-      const start = textarea.selectionStart;
-      const value = textarea.value;
-
-      // Find the beginning of the current line
-      let lineStart = start;
-      while (lineStart > 0 && value[lineStart - 1] !== "\n") {
-        lineStart--;
-      }
-
-      // Check if line already starts with '> '
-      const lineContent = value.substring(lineStart);
-      if (lineContent.startsWith(" [ ] ")) {
-        // Remove the blockquote
-        const newValue =
-          value.substring(0, lineStart) +
-          lineContent.substring(2) +
-          value.substring(lineStart + lineContent.length);
-        textarea.value = newValue;
-        textarea.focus();
-        textarea.setSelectionRange(start - 2, start - 2);
-      } else {
-        // Add the blockquote
-        const newValue =
-          value.substring(0, lineStart) + "- [ ] " + value.substring(lineStart);
-        textarea.value = newValue;
-        textarea.focus();
-        textarea.setSelectionRange(start + 6, start + 6);
-      }
-    }
+    formatLine("- [ ] ");
   };
 
   const unorderedListText = (
@@ -264,36 +141,93 @@ const Editor = ({ id, className = "" }: { id: string; className?: string }) => {
   ) => {
     e?.preventDefault();
     e?.stopPropagation();
+    formatLine("- ");
+  };
+
+  const orderedListText = (
+    e: React.MouseEvent<HTMLButtonElement> | KeyboardEvent
+  ) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+    formatLine("1. ", (prevLine) => {
+      const match = prevLine.match(/^(\d+)\. /);
+      return match ? `${parseInt(match[1]) + 1}. ` : "1. ";
+    });
+  };
+
+  const linkText = (e: React.MouseEvent<HTMLButtonElement> | KeyboardEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
 
     const textarea = textareaRef.current;
-    if (textarea) {
-      const start = textarea.selectionStart;
-      const value = textarea.value;
+    if (!textarea) return;
 
-      // Find the beginning of the current line
-      let lineStart = start;
-      while (lineStart > 0 && value[lineStart - 1] !== "\n") {
-        lineStart--;
-      }
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = textarea.value.substring(start, end);
 
-      // Check if line already starts with '> '
-      const lineContent = value.substring(lineStart);
-      if (lineContent.startsWith("- ")) {
-        // Remove the blockquote
+    if (selectedText) {
+      const newValue =
+        textarea.value.substring(0, start) +
+        `[${selectedText}](${selectedText})` +
+        textarea.value.substring(end);
+      textarea.value = newValue;
+      textarea.focus();
+      const urlStart = start + selectedText.length + 3;
+      const urlEnd = urlStart + selectedText.length;
+      textarea.setSelectionRange(urlStart, urlEnd);
+    } else {
+      const newValue =
+        textarea.value.substring(0, start) +
+        `[](url)` +
+        textarea.value.substring(end);
+      textarea.value = newValue;
+      textarea.focus();
+      textarea.setSelectionRange(start + 3, start + 6);
+    }
+  };
+
+  // Generic Enter continuation handler
+  const handleEnterContinuation = (
+    e: React.KeyboardEvent<HTMLTextAreaElement>
+  ) => {
+    const textarea = e.currentTarget;
+    const start = textarea.selectionStart;
+    const value = textarea.value;
+
+    let lineStart = start;
+    while (lineStart > 0 && value[lineStart - 1] !== "\n") {
+      lineStart--;
+    }
+
+    const lineContent = value.substring(lineStart, start);
+
+    const patterns = [
+      { regex: /^- \[ \] /, continuation: "\n- [ ] " },
+      { regex: /^- /, continuation: "\n- " },
+      {
+        regex: /^(\d+)\. /,
+        continuation: (match: RegExpMatchArray) =>
+          `\n${parseInt(match[1]) + 1}. `,
+      },
+    ];
+
+    for (const pattern of patterns) {
+      const match = lineContent.match(pattern.regex);
+      if (match) {
+        e.preventDefault();
+        const continuation =
+          typeof pattern.continuation === "function"
+            ? pattern.continuation(match)
+            : pattern.continuation;
         const newValue =
-          value.substring(0, lineStart) +
-          lineContent.substring(2) +
-          value.substring(lineStart + lineContent.length);
+          value.substring(0, start) + continuation + value.substring(start);
         textarea.value = newValue;
-        textarea.focus();
-        textarea.setSelectionRange(start - 2, start - 2);
-      } else {
-        // Add the blockquote
-        const newValue =
-          value.substring(0, lineStart) + "- " + value.substring(lineStart);
-        textarea.value = newValue;
-        textarea.focus();
-        textarea.setSelectionRange(start + 2, start + 2);
+        textarea.setSelectionRange(
+          start + continuation.length,
+          start + continuation.length
+        );
+        return;
       }
     }
   };
@@ -349,68 +283,13 @@ const Editor = ({ id, className = "" }: { id: string; className?: string }) => {
           } ${className}`}
           placeholder="Use Markdown to format"
           onKeyDown={(e) => {
-            // Cmd + B for bold
-            if (e.metaKey && e.key === "b") {
-              boldText(e);
-            }
-            // Cmd + I for Italic
-            if (e.metaKey && e.key === "i") {
-              italicText(e);
-            }
-            // Handle Enter for checklist continuation
-            if (e.key === "Enter") {
-              const textarea = e.currentTarget;
-              const start = textarea.selectionStart;
-              const value = textarea.value;
-
-              // Find the beginning of the current line
-              let lineStart = start;
-              while (lineStart > 0 && value[lineStart - 1] !== "\n") {
-                lineStart--;
-              }
-
-              // Get the content from line start to cursor position
-              const lineContent = value.substring(lineStart, start);
-
-              if (lineContent.startsWith("- [ ] ")) {
-                e.preventDefault();
-                const newValue =
-                  value.substring(0, start) +
-                  "\n- [ ] " +
-                  value.substring(start);
-                textarea.value = newValue;
-                textarea.setSelectionRange(start + 7, start + 7);
-              } else if (lineContent.startsWith("- ")) {
-                e.preventDefault();
-                const newValue =
-                  value.substring(0, start) + "\n- " + value.substring(start);
-                textarea.value = newValue;
-                textarea.setSelectionRange(start + 3, start + 3);
-              } else if (/^\d+\. /.test(lineContent)) {
-                e.preventDefault();
-                const match = lineContent.match(/^(\d+)\. /);
-                const nextNumber = parseInt(match[1]) + 1;
-                const newValue =
-                  value.substring(0, start) +
-                  `\n${nextNumber}. ` +
-                  value.substring(start);
-                textarea.value = newValue;
-                textarea.setSelectionRange(
-                  start + `\n${nextNumber}. `.length,
-                  start + `\n${nextNumber}. `.length
-                );
-              }
-            }
+            if (e.metaKey && e.key === "b") boldText(e);
+            if (e.metaKey && e.key === "i") italicText(e);
+            if (e.key === "Enter") handleEnterContinuation(e);
           }}
-          onDrop={() => {
-            console.log("dropping");
-          }}
-          onDragOver={() => {
-            setIsDragging(true);
-          }}
-          onDragLeave={() => {
-            setIsDragging(false);
-          }}
+          onDrop={() => console.log("dropping")}
+          onDragOver={() => setIsDragging(true)}
+          onDragLeave={() => setIsDragging(false)}
         />
       </div>
       <div className="p-1">
