@@ -25,7 +25,7 @@ const BoardBlock = () => {
         <p className="section-description">Something something</p>
       </div>
 
-      <div className="board-buttons">
+      <div className="button-group">
         <Button asChild variant="ghost">
           <a href={`${link("/suggest/:id", { id: "1" })}#comments`}>
             <MessageCircle />

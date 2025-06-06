@@ -18,7 +18,7 @@ const TagBlock = () => {
         <Swatch />
         <h3 className="text-lg font-bold">Tag Block</h3>
       </div>
-      <div className="board-buttons">
+      <div className="button-group">
         <Button variant="ghost">
           <TagIcon />
           15

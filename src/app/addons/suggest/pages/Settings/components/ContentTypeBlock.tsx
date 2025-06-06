@@ -24,7 +24,7 @@ const ContentTypeBlock = () => {
         <p className="section-description">Something something</p>
       </div>
 
-      <div className="board-buttons">
+      <div className="button-group">
         <Button variant="ghost">
           <LayoutGrid />
           15

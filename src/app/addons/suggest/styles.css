@@ -51,7 +51,7 @@
     @apply uppercase font-mono text-sm font-bold tracking-wider mb-2;
   }
 
-  .board-buttons {
+  .button-group {
     @apply flex items-center gap-x-8;
   }
 
